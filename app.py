@@ -6,7 +6,8 @@ from opentelemetry.sdk.trace.export import (
 )
 import time
 from opentelemetry.sdk.resources import Resource
-from opentelemetry.exporter.jaeger import JaegerExporter
+from opentelemetry.exporter.jaeger.thrift import JaegerExporter
+#from opentelemetry.exporter.jaeger import JaegerExporter
 
 #set up jaeger exporter
 # jaeger_exporter = JaegerExporter(
@@ -21,8 +22,11 @@ jaeger_exporter = JaegerExporter(
 
 resource = Resource(attributes={"service.name": "Don-fortune-Macbook-Pro", "os-version": 1234.5, "cluster": "A", "datacenter":"NG"})
 provider = TracerProvider(resource=resource)
-processor = BatchSpanProcessor(ConsoleSpanExporter())
+processor = BatchSpanProcessor(jaeger_exporter)
 provider.add_span_processor(processor)
+
+console_exporter = ConsoleSpanExporter()
+processor.add_span_processor(BatchSpanProcessor(console_exporter))
 
 
 
