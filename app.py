@@ -16,7 +16,7 @@ from opentelemetry.exporter.jaeger.thrift import JaegerExporter
 # )
 
 jaeger_exporter = JaegerExporter(
-    agent_host_name="localhost",  # Change to "localhost" for local Docker setup
+    agent_host_name="localhost",  # Change to "localhost" for local Docker 
     agent_port=6831               # Standard OpenTelemetry port for Jaeger
 )
 
